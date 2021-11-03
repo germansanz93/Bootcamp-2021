@@ -1,0 +1,126 @@
+swagger: "2.0"
+info:
+  description: "Spotify-service"
+  version: "1.0.0"
+  title: "Spotify service"
+  contact:
+    email: "matias.rojas@indigital.pe"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:8080"
+tags:
+- name: "track"
+  description: "Operations about track"
+schemes:
+- "https"
+- "http"
+paths:
+  /track:
+    post:
+      tags:
+        - "track"
+      summary: "Create a new track"
+      description: "Create a new track"
+      operationId: "newTrack"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "TrackRequest"
+          in: "body"
+          description: "Track object"
+          required: true
+          schema:
+            $ref: "#/definitions/TrackRequest"
+      responses:
+        "201":
+          description: "Created"
+          schema:
+            $ref: "#/definitions/TrackResponse"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/ErrorBadRequestResponse"
+        "404":
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/ErrorNotFoundResponse"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorInternalServerResponse"
+            
+            
+definitions:
+  TrackRequest:
+    type: "object"
+    required:
+    - "name"
+    - "artist"
+    - "album"
+    - "duration"
+    properties:
+      name:
+        type: "string"
+        example: "metallica nothing else matters"
+      artist:
+        type: "string"
+        example: "Metallica"
+      album:
+        type: "string"
+        example: "... and justice for all"
+      duration:
+        type: "number"
+        example: 5
+        
+  TrackResponse:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      artist:
+        type: "string"
+      album:
+        type: "string"
+      reproduction:
+        type: "number"
+      duration:
+        type: "string"
+  ErrorNotFoundResponse:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        example: "GENERIC_NOT_FOUND"
+      message:
+        type: "string"
+        example: "Resource Not Found"
+      result:
+        type: "string"
+        example: "GENERIC_NOT_FOUND"
+  ErrorBadRequestResponse:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        example: "GENERIC_BAD_REQUEST"
+      message:
+        type: "string"
+        example: "Invalid Request"
+      result:
+        type: "string"
+        example: "GENERIC_NOT_FOUND"
+  ErrorInternalServerResponse:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        example: "GENERIC_INTERNAL_SERVER_ERROR"
+      message:
+        type: "string"
+        example: "Internal Server Error"
+      result:
+        type: "string"
+        example: "GENERIC_INTERNAL_SERVER_ERROR"
