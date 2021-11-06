@@ -1,7 +1,6 @@
 package com.intercorp.pinapper.controller;
 
 import com.intercorp.pinapper.exceptions.PinapperExistException;
-import com.intercorp.pinapper.exceptions.PinapperNotExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -32,15 +31,6 @@ public class GlobalControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(PinapperExistException.class)
     public Map<String, String> handlerValidationException(PinapperExistException ex) {
-        Map<String, String> errors = new HashMap<>();
-        String fieldName = "Error: ";
-        errors.put(fieldName, ex.getMessage());
-        return errors;
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(PinapperNotExistException.class)
-    public Map<String, String> handlerValidationException(PinapperNotExistException ex) {
         Map<String, String> errors = new HashMap<>();
         String fieldName = "Error: ";
         errors.put(fieldName, ex.getMessage());

@@ -23,7 +23,7 @@ public class PinaperController {
     }
 
     @GetMapping(path = "/")
-    public List<Pinapper> retrivePinnapers() {
+    public Iterable<Pinapper> retrivePinnapers() {
         return pinapperService.getPinappers();
     }
 
